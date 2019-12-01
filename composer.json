@@ -10,6 +10,8 @@
     "phpunit/phpunit": "8"
   },
   "autoload": {
-    "psr-4": {"gdejong\\AdventOfCode\\": "src/"}
+    "psr-4": {
+      "gdejong\\AdventOfCode\\": "src/"
+    }
   }
 }
