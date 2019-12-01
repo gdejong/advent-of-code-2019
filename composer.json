@@ -1,0 +1,15 @@
+{
+  "name": "gdejong/advent-of-code-2019",
+  "description": "Advent of Code 2019",
+  "license": "MIT",
+  "require": {
+    "php": "^7.4",
+    "symfony/console": "^5.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "8"
+  },
+  "autoload": {
+    "psr-4": {"gdejong\\AdventOfCode\\": "src/"}
+  }
+}
