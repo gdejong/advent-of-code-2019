@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-use gdejong\AdventOfCode\Day1\Part2\FuelCalculator;
+namespace gdejong\AdventOfCode\Day1\Part2;
+
 use PHPUnit\Framework\TestCase;
 
 class Part2Test extends TestCase

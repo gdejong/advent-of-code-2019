@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-use gdejong\AdventOfCode\Day2\Part1\Intcode;
+namespace gdejong\AdventOfCode\Day2\Part1;
+
 use PHPUnit\Framework\TestCase;
 
 class Part1Test extends TestCase

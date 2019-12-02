@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace gdejong\AdventOfCode\Day1\Part1;

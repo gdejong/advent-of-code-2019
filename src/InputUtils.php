@@ -1,7 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace gdejong\AdventOfCode;
+
+use UnexpectedValueException;
 
 class InputUtils
 {
@@ -14,6 +17,9 @@ class InputUtils
 
         $output = [];
         foreach (explode($delimiter, $input) as $line) {
+            if (!is_numeric($line)) {
+                throw new UnexpectedValueException("Value " . $line . " is not numeric");
+            }
             $output[] = (int)$line;
         }
 

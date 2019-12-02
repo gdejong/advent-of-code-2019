@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace gdejong\AdventOfCode\Day2\Part2;
@@ -11,9 +12,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RunDay2Part2Command extends Command
 {
-    protected static $defaultName = 'day2:part2';
-
     private const MAGIC_NUMBER = 19690720;
+    protected static $defaultName = 'day2:part2';
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
