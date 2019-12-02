@@ -5,7 +5,7 @@ namespace gdejong\AdventOfCode;
 
 class InputUtils
 {
-    public static function convertFileToIntArray(string $filename): array
+    public static function convertFileToIntArray(string $filename, string $delimiter = PHP_EOL): array
     {
         $input = file_get_contents($filename);
         if ($input === false) {
@@ -13,7 +13,7 @@ class InputUtils
         }
 
         $output = [];
-        foreach (explode(PHP_EOL, $input) as $line) {
+        foreach (explode($delimiter, $input) as $line) {
             $output[] = (int)$line;
         }
 
