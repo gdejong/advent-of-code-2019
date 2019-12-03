@@ -15,9 +15,17 @@ class RunDay3Part1Command extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $intersection_finder = new IntersectionFinder();
+
         $puzzle_input = InputUtils::convertFileToStringArray(dirname(__DIR__) . DIRECTORY_SEPARATOR . "input.txt");
 
-        var_dump($puzzle_input);
+        if (count($puzzle_input) !== 2) {
+            throw new \RuntimeException("Invalid input, must be two lines of text");
+        }
+
+        $result = $intersection_finder->find($puzzle_input[0], $puzzle_input[1]);
+
+        $output->writeln("Manhattan distance from the central port to the closest intersection: " . $result);
         return 0;
     }
 }

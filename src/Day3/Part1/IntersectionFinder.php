@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace gdejong\AdventOfCode\Day3\Part1;
 
+use RuntimeException;
+
 class IntersectionFinder
 {
     public function find(string $first_path, string $second_path): int
@@ -11,15 +13,23 @@ class IntersectionFinder
         $grid1 = $this->fillGrid($first_path);
         $grid2 = $this->fillGrid($second_path);
 
-        foreach ($grid1 as $x1 => $rows) {
-            foreach ($rows as $y1) {
-                if (isset($grid2[$x1]) && isset($grid2[$x1][$y1])) {
-                    var_dump($grid2[$x1][$y1]);
+        $manhattan = null;
+        foreach ($grid1 as $y => $rows) {
+            foreach ($rows as $x => $_) {
+                if (isset($grid2[$y][$x])) {
+                    $m = $this->manhattanDistance($x, $y);
+                    if ($manhattan === null || $m < $manhattan) {
+                        $manhattan = $m;
+                    }
                 }
             }
         }
 
-        return 0;
+        if ($manhattan === null) {
+            throw new RuntimeException("No intersection found");
+        }
+
+        return $manhattan;
     }
 
     /**
@@ -33,41 +43,43 @@ class IntersectionFinder
         $y = 0;
 
         foreach (explode(",", $path) as $item => $value) {
+            $length = (int)substr($value, 1);
+
             switch (substr($value, 0, 1)) {
                 case "U":
-                    $newY = (int)substr($value, 1);
-                    for ($i = $y; $i < $newY; $i++) {
-                        $grid[$x][$i] = 1;
+                    for ($i = 1; $i <= $length; $i++) {
+                        $grid[$y + $i][$x] = 1;
                     }
-                    $y += $newY;
+                    $y += $length;
                     break;
                 case "D":
-                    $newY = (int)substr($value, 1);
-                    for ($i = $y; $i < $newY; $i++) {
-                        $grid[$x][$i] = 1;
+                    for ($i = 1; $i <= $length; $i++) {
+                        $grid[$y - $i][$x] = 1;
                     }
-                    $y -= $newY;
+                    $y -= $length;
                     break;
                 case "R":
-                    $newX = (int)substr($value, 1);
-                    $x += $newX;
-                    for ($i = $x; $i < $newX; $i++) {
-                        $grid[$i][$y] = 1;
+                    for ($i = 1; $i <= $length; $i++) {
+                        $grid[$y][$x + $i] = 1;
                     }
-
+                    $x += $length;
                     break;
                 case "L":
-                    $newX = (int)substr($value, 1);
-                    for ($i = $x; $i < $newX; $i++) {
-                        $grid[$i][$y] = 1;
+                    for ($i = 1; $i <= $length; $i++) {
+                        $grid[$y][$x - $i] = 1;
                     }
-                    $x -= $newX;
+                    $x -= $length;
                     break;
                 default:
-                    throw new \RuntimeException("Unknown instruction");
+                    throw new RuntimeException("Unknown instruction");
             }
         }
 
         return $grid;
+    }
+
+    private function manhattanDistance(int $x, int $y): int
+    {
+        return abs($x) + abs($y);
     }
 }
