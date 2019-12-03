@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace gdejong\AdventOfCode\Day3\Part1;
+namespace gdejong\AdventOfCode\Day3\Part2;
 
 use RuntimeException;
 
-class IntersectionFinder
+class IntersectionFinderV2
 {
     public function find(string $first_path, string $second_path): int
     {
         $grid = [];
-        $manhattan = null;
+        $min_steps = PHP_INT_MAX;
 
         foreach ([$first_path, $second_path] as $nr => $routes) {
-            $x = $y =  0;
+            $x = $y = $steps = 0;
             foreach (explode(",", $routes) as $route) {
                 $length = (int)substr($route, 1);
                 $dir = substr($route, 0, 1);
@@ -39,22 +39,18 @@ class IntersectionFinder
                         default:
                             throw new RuntimeException("Unknown instruction");
                     }
-                    $grid[$x][$y][$nr] = 1337;
+                    $grid[$x][$y][$nr] = ++$steps;
                     if (count($grid[$x][$y]) === 2) {
-                        $m = $this->manhattanDistance($x, $y);
-                        if ($manhattan === null || $m < $manhattan) {
-                            $manhattan = $m;
-                        }
+                        $min_steps = min($min_steps, array_sum($grid[$x][$y]));
                     }
                 }
             }
         }
 
-        return $manhattan;
-    }
+        if ($min_steps === PHP_INT_MAX) {
+            throw new RuntimeException("Could not find closest distance");
+        }
 
-    private function manhattanDistance(int $x, int $y): int
-    {
-        return abs($x) + abs($y);
+        return $min_steps;
     }
 }
