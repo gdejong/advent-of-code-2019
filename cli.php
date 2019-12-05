@@ -13,6 +13,7 @@ use gdejong\AdventOfCode\Day3\Part2\RunDay3Part2Command;
 use gdejong\AdventOfCode\Day4\Part1\RunDay4Part1Command;
 use gdejong\AdventOfCode\Day4\Part2\RunDay4Part2Command;
 use gdejong\AdventOfCode\Day5\Part1\RunDay5Part1Command;
+use gdejong\AdventOfCode\Day5\Part2\RunDay5Part2Command;
 use Symfony\Component\Console\Application;
 
 $application = new Application();
@@ -26,5 +27,6 @@ $application->add(new RunDay3Part2Command());
 $application->add(new RunDay4Part1Command());
 $application->add(new RunDay4Part2Command());
 $application->add(new RunDay5Part1Command());
+$application->add(new RunDay5Part2Command());
 
 $application->run();
