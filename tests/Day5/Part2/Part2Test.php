@@ -14,7 +14,7 @@ class Part2Test extends TestCase
         $this::assertSame(1337, $intcode->run([3, 0, 4, 0, 99], 1337));
         $this::assertSame(0, $intcode->run([3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8], 7));
         $this::assertSame(
-            0,
+            999,
             $intcode->run(
                 [
                     3,
