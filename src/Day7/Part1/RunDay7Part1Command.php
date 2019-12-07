@@ -35,12 +35,8 @@ class RunDay7Part1Command extends Command
 
         $output_signals = [];
         foreach ($phase_settings as $phase) {
-            $amplifier_input_value = 0;
-            for ($amplifiers = 0; $amplifiers < 5; $amplifiers++) {
-                $intcode = new Intcode();
-                $amplifier_input_value = $intcode->run($user_input, $phase[$amplifiers], $amplifier_input_value);
-            }
-            $output_signals[] = $amplifier_input_value;
+            $intcode = new Intcode();
+            $output_signals[] = $intcode->runPhase($user_input, $phase, 5);
         }
 
         $output->writeln("Largest output signal that can be sent to the thrusters: " . max($output_signals));

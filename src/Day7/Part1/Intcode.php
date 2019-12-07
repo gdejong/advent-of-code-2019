@@ -11,13 +11,23 @@ class Intcode
     private const MODE_POSITION = 0;
     private const MODE_IMMEDIATE = 1;
 
-    public function run(array $program, int $phase , int $input): int
+    public function runPhase(array $program, array $phases, $number_of_amplifiers)
+    {
+        $amplifier_input_value = 0;
+        for ($amplifiers = 0; $amplifiers < $number_of_amplifiers; $amplifiers++) {
+            $input = [$phases[$amplifiers], $amplifier_input_value];
+            $amplifier_input_value = $this->run($program, $input);
+        }
+
+        return $amplifier_input_value;
+    }
+
+    public function run(array $program, array $inputs): int
     {
         $return = PHP_INT_MAX;
         $result = $program;
         $instruction_pointer = 0;
 
-        $inputs = [$phase, $input];
         $input_pointer = 0;
         while (true) {
             $mode_1 = isset(((string)$result[$instruction_pointer])[-3]) ? (int)((string)($result[$instruction_pointer]))[-3] : 0;  //hundreds digit
@@ -114,7 +124,7 @@ class Intcode
                         } else {
                             $result[$instruction_pointer + 3] = 1;
                         }
-                    }else{
+                    } else {
                         if ($mode_3 === self::MODE_POSITION) {
                             $result[$result[$instruction_pointer + 3]] = 0;
                         } else {
