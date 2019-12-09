@@ -15,7 +15,7 @@ class InputUtils
         $output = [];
         foreach ($strings as $line) {
             if (!is_numeric($line)) {
-                throw new UnexpectedValueException("Value " . $line . " is not numeric");
+                throw new UnexpectedValueException("Value " . var_export($line, true) . " is not numeric");
             }
             $output[] = (int)$line;
         }
@@ -25,7 +25,7 @@ class InputUtils
 
     public static function convertFileToStringArray(string $filename, string $delimiter = PHP_EOL): array
     {
-        $input = file_get_contents($filename);
+        $input = trim(file_get_contents($filename), "\n" . PHP_EOL);
         if ($input === false) {
             die("Failed to open input file: " . $filename);
         }
