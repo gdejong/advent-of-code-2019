@@ -25,11 +25,18 @@ class InputUtils
 
     public static function convertFileToStringArray(string $filename, string $delimiter = PHP_EOL): array
     {
+        $input = self::getFileContents($filename);
+
+        return explode($delimiter, $input);
+    }
+
+    public static function getFileContents(string $filename): string
+    {
         $input = trim(file_get_contents($filename), "\n" . PHP_EOL);
         if ($input === false) {
             die("Failed to open input file: " . $filename);
         }
 
-        return explode($delimiter, $input);
+        return $input;
     }
 }

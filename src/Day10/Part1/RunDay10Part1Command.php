@@ -15,7 +15,7 @@ class RunDay10Part1Command extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $user_input = InputUtils::convertFileToStringArray(dirname(__DIR__) . DIRECTORY_SEPARATOR . "input.txt")[0];
+        $user_input = InputUtils::getFileContents(dirname(__DIR__) . DIRECTORY_SEPARATOR . "input.txt");
 
         $asteroid_map = new AsteroidMap($user_input);
 
