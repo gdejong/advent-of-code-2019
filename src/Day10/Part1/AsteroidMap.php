@@ -19,12 +19,12 @@ class AsteroidMap
     private function parseMap(string $input): array
     {
         $map = [];
-        foreach (explode("\n", $input) as $row_nr => $row) {
-            foreach (str_split($row) as $spot) {
+        foreach (explode("\n", $input) as $y => $row) {
+            foreach (str_split($row) as $x => $spot) {
                 if ($spot === "#") {
-                    $map[$row_nr][] = self::ASTEROID;
+                    $map[$x][$y] = self::ASTEROID;
                 } else {
-                    $map[$row_nr][] = self::NO_ASTEROID;
+                    $map[$x][$y] = self::NO_ASTEROID;
                 }
             }
         }
@@ -39,8 +39,8 @@ class AsteroidMap
         $result = [];
         foreach ($asteroids as $asteroid) {
             [$asteroid_x, $asteroid_y] = $asteroid;
-            foreach ($this->map as $x => $row) {
-                foreach ($row as $y => $spot) {
+            foreach ($this->map as $y => $row) {
+                foreach ($row as $x => $spot) {
                     if ($x === $asteroid_x && $y === $asteroid_y) {
                         continue;
                     }
@@ -70,8 +70,8 @@ class AsteroidMap
     private function getAsteroidsFromMap(array $map): array
     {
         $asteroids = [];
-        foreach ($map as $x => $row) {
-            foreach ($row as $y => $spot) {
+        foreach ($map as $y => $row) {
+            foreach ($row as $x => $spot) {
                 if ($spot === self::ASTEROID) {
                     $asteroids[] = [$x, $y];
                 }
